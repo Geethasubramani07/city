@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart City Traffic Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Smart City Traffic</h1>
+      <p class="sub">Live junction monitoring &middot; simulated sensor network</p>
+    </div>
+    <div class="controls">
+      <label for="mode">Scenario</label>
+      <select id="mode">
+        <option value="auto">Auto (time of day)</option>
+        <option value="rush">Rush hour</option>
+        <option value="night">Night</option>
+      </select>
+      <span id="status" class="pill pill-off">connecting…</span>
+      <span id="clock" class="clock"></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="kpis">
+      <div class="card kpi"><span class="label">Avg speed</span><span class="value" id="k-speed">–</span><span class="unit">km/h</span></div>
+      <div class="card kpi"><span class="label">Congestion index</span><span class="value" id="k-cong">–</span><span class="unit">/ 100</span></div>
+      <div class="card kpi"><span class="label">Vehicles detected</span><span class="value" id="k-veh">–</span><span class="unit">in network</span></div>
+      <div class="card kpi"><span class="label">Active incidents</span><span class="value" id="k-inc">–</span><span class="unit" id="k-worst">&nbsp;</span></div>
+    </section>
+
+    <section class="grid">
+      <div class="card map-card">
+        <div class="card-head"><h2>Network map</h2>
+          <div class="legend"><i class="dot free"></i>Free <i class="dot mod"></i>Moderate <i class="dot heavy"></i>Heavy</div>
+        </div>
+        <svg id="map" viewBox="0 0 100 62" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Junction network map"></svg>
+      </div>
+
+      <div class="card chart-card">
+        <div class="card-head"><h2>Last few minutes</h2>
+          <div class="legend"><i class="line speed"></i>Speed <i class="line cong"></i>Congestion</div>
+        </div>
+        <svg id="chart" viewBox="0 0 400 180" preserveAspectRatio="none"></svg>
+      </div>
+
+      <div class="card table-card">
+        <div class="card-head"><h2>Junctions</h2><span class="muted">sorted by congestion</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Junction</th><th>Congestion</th><th>Speed</th><th>Vehicles</th><th>Signal</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card inc-card">
+        <div class="card-head"><h2>Incidents</h2></div>
+        <ul id="incidents" class="incidents"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
